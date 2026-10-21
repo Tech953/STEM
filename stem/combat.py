@@ -71,7 +71,7 @@ def handle(w,p,intent,raw,engine):
         engine.require(candidates,'No accessible neighboring escape sector is available.')
         ok,roll=engine.check(w,p,'body',11,'transversal')
         if ok:
-            _,direction,x,y=min(candidates);engine.visit(w,x,y);p['pos']=[x,y];p['route']=[];p['destination']=None;t['state']='watchful'
+            _,direction,x,y=min(candidates);engine.visit(w,x,y);p['pos']=[x,y];engine.reveal(w,x,y);p['route']=[];p['destination']=None;t['state']='watchful'
             out='You disengage into the next physical sector '+direction+'. The unresolved construct remains behind.'
         else:extra,counter=retaliation(w,p,c,engine);out='The disengagement route does not open.'+extra;roll+='\n'+counter
     return dict(text=out,mechanics=roll,intent=intent,time_spent=True)

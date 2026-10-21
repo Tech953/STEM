@@ -1,5 +1,5 @@
 """Playable interpretation of the two uploaded drawings, not a surveyed scale map."""
-from collections import deque
+import heapq
 import re
 MIN_X,MAX_X,MIN_Y,MAX_Y=-18,18,-12,12
 SPAWN=[-10,3]
@@ -71,21 +71,33 @@ def info(x,y):
  elif y>=4:terrain='dustland';region='AETHERGALE';cost=2
  else:terrain='foothill';region='ENACT_HILLS';cost=1
  return dict(terrain=terrain,passable=True,region=region,cost=cost,landmark=None)
+
+def route_cost(path):
+ return sum(info(*cell)['cost'] for cell in path)
+
 def route(start,goal):
+ start=tuple(start);goal=tuple(goal)
  if not info(*goal)['passable']:raise ValueError('That destination is not physically accessible.')
- q=deque([tuple(start)]);prev={tuple(start):None};goal=tuple(goal)
+ q=[(0,0,0,start)];best={start:(0,0)};prev={start:None};serial=0
  while q:
-  node=q.popleft()
+  cost,steps,_,node=heapq.heappop(q)
+  if best.get(node)!=(cost,steps):continue
   if node==goal:break
   for dx,dy in [(0,-1),(1,0),(0,1),(-1,0)]:
    dest=(node[0]+dx,node[1]+dy)
-   if dest not in prev and info(*dest)['passable']:prev[dest]=node;q.append(dest)
+   tile=info(*dest)
+   if not tile['passable']:continue
+   score=(cost+tile['cost'],steps+1)
+   if score<best.get(dest,(float('inf'),float('inf'))):
+    best[dest]=score;prev[dest]=node;serial+=1;heapq.heappush(q,(*score,serial,dest))
  if goal not in prev:raise ValueError('No traversable route was found within the interpreted map.')
  path=[];node=goal
  while prev[node] is not None:path.append(list(node));node=prev[node]
  return list(reversed(path))
-def public(p):
- return dict(bounds=[MIN_X,MAX_X,MIN_Y,MAX_Y],landmarks=[dict(v,id=k) for k,v in LANDMARKS.items()],position=p['pos'],route=p.get('route',[]),destination=p.get('destination'),note='Interpreted from your photographs; exact scale, unlabeled features and district placement are provisional. Travel follows land, bridges and mountain approaches one sector at a time.')
+def public(p,revealed=None):
+ route_path=p.get('route',[])
+ explored=sorted([list(map(int,k.split(','))) for k in (revealed or {})])
+ return dict(bounds=[MIN_X,MAX_X,MIN_Y,MAX_Y],landmarks=[dict(v,id=k) for k,v in LANDMARKS.items()],position=p['pos'],route=route_path,route_cycles=route_cost(route_path),revealed=explored,destination=p.get('destination'),note='Interpreted from your photographs; exact scale, unlabeled features and district placement are provisional. Entering a sector reveals nearby terrain; unexplored squares remain obscured. Travel follows land, bridges and mountain approaches one sector at a time.')
 def project(x,y):return (40+(x-MIN_X)*22,40+(y-MIN_Y)*22)
 def svg():
  width=880;height=620;parts=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc"><title id="title">Stem interpreted world routes</title><desc id="desc">Western Needle and THORNS encampment, northern foothills, eastern mountain construction and woodland, southern dustlands, river channels and border observation.</desc><rect width="880" height="620" fill="#0d1617"/>']

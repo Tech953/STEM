@@ -203,6 +203,29 @@ class FieldGuideTests(unittest.TestCase):
         with patch('field_rules.die',return_value=1):f.handle(w,p,'field_end','',self.local(w,p))
         self.assertLess(f.vitals(p)['health'],hp)
 
+    def test_tactical_board_is_stable_axial_and_rng_independent(self):
+        w=self.fetch();p=self.player(w);e,_=self.encounter(w,p)
+        counter=w['field_rules']['rng_counter']
+        board=f.tactical_board(w,p,e)
+        self.assertEqual(w['field_rules']['rng_counter'],counter)
+        self.assertEqual(board,f.tactical_board(w,p,e))
+        self.assertEqual(board['topology'],'axial-hex')
+        self.assertEqual(board['projection'],'isometric')
+        self.assertEqual(board['terrain_effects'],'visual-only')
+        self.assertEqual((board['radius'],len(board['cells'])),(5,91))
+        f.start_combat(w,p,e)
+        self.assertEqual(e['combat']['board'],board)
+
+    def test_tactical_board_expands_without_changing_saved_terrain(self):
+        w=self.fetch();p=self.player(w);e,_=self.encounter(w,p)
+        f.start_combat(w,p,e)
+        original={(c['q'],c['r']):c for c in e['combat']['board']['cells']}
+        e['combat']['positions'][p['id']]=[0,7]
+        board=f.ensure_tactical_board(w,p,e)
+        expanded={(c['q'],c['r']):c for c in board['cells']}
+        self.assertEqual((board['radius'],len(board['cells'])),(7,169))
+        self.assertEqual({k:expanded[k] for k in original},original)
+
     def test_energy_attack_ignores_armor_and_preserves_health(self):
         w=self.fetch();p=self.player(w);p['field_armor']=5
         e,a=self.encounter(w,p,'FOE31',hex=[0,1]);f.start_combat(w,p,e)

@@ -1,4 +1,44 @@
 'use strict';
+const SVG_NS='http://www.w3.org/2000/svg';
+function tacticalBoardView(e,players,n){
+ const battle=e?.combat,board=battle?.board;if(!board)return null;
+ const wrap=n('section','','tactical-map'),habitat=/^(needle|web|gale|shellwood|ark|enact|tar|bunker|campus)$/.test(e.habitat)?e.habitat:'enact';
+ wrap.append(n('p',`ISOMETRIC HEX FIELD · ${habitat.toUpperCase()} · RADIUS ${board.radius} · VISUAL TERRAIN ONLY`,'tactical-map-caption'));
+ const svg=document.createElementNS(SVG_NS,'svg');svg.setAttribute('role','img');svg.setAttribute('aria-label',`${habitat} encounter board with ${board.cells.length} axial hexes, radius ${board.radius}; combatant coordinates are listed below.`);
+ const side=25,cart=(q,r)=>[1.5*side*q,Math.sqrt(3)*side*(r+q/2)],project=(x,y)=>[(x-y)*.8,(x+y)*.42];
+ const center=(q,r)=>{const [x,y]=cart(q,r);return project(x,y);};
+ const vertices=(q,r)=>{const [x,y]=cart(q,r);return Array.from({length:6},(_,i)=>{const a=Math.PI*i/3;return project(x+side*Math.cos(a),y+side*Math.sin(a));});};
+ const corners=board.cells.flatMap(c=>vertices(c.q,c.r)),xs=corners.map(p=>p[0]),ys=corners.map(p=>p[1]),pad=26;
+ svg.setAttribute('viewBox',`${Math.min(...xs)-pad} ${Math.min(...ys)-pad} ${Math.max(...xs)-Math.min(...xs)+pad*2} ${Math.max(...ys)-Math.min(...ys)+pad*2}`);
+ const cellOrder=[...board.cells].sort((a,b)=>(a.q+a.r)-(b.q+b.r)||a.q-b.q);
+ for(const cell of cellOrder){
+  const hex=document.createElementNS(SVG_NS,'polygon');hex.setAttribute('points',vertices(cell.q,cell.r).map(([x,y])=>`${x.toFixed(1)},${y.toFixed(1)}`).join(' '));hex.setAttribute('class',`hex-tile hex-tile--${habitat}`);hex.setAttribute('data-q',cell.q);hex.setAttribute('data-r',cell.r);
+  const title=document.createElementNS(SVG_NS,'title');title.textContent=`${cell.ground}${cell.feature?` / ${cell.feature}`:''} · axial ${cell.q},${cell.r} · visual only`;hex.append(title);svg.append(hex);
+  if(cell.feature){const [x,y]=center(cell.q,cell.r),mark=document.createElementNS(SVG_NS,'circle');mark.setAttribute('cx',x.toFixed(1));mark.setAttribute('cy',(y-2-cell.relief).toFixed(1));mark.setAttribute('r',(2.3+cell.relief*.7).toFixed(1));mark.setAttribute('class',`hex-feature hex-feature--${habitat}`);const label=document.createElementNS(SVG_NS,'title');label.textContent=cell.feature+'; does not alter movement or cover.';mark.append(label);svg.append(mark);}
+ }
+ const combatants=[];
+ const unit=(pos,label,kind,active=false)=>{
+  if(!Array.isArray(pos))return;const [x,y]=center(pos[0],pos[1]),shape=document.createElementNS(SVG_NS,kind==='foe'?'polygon':'circle');
+  combatants.push({q:pos[0],r:pos[1],label,kind,active});
+  if(kind==='foe'){shape.setAttribute('points',`${x.toFixed(1)},${(y-9).toFixed(1)} ${(x+8).toFixed(1)},${y.toFixed(1)} ${x.toFixed(1)},${(y+9).toFixed(1)} ${(x-8).toFixed(1)},${y.toFixed(1)}`);}
+  else{shape.setAttribute('cx',x.toFixed(1));shape.setAttribute('cy',y.toFixed(1));shape.setAttribute('r','8');}
+  shape.setAttribute('class',`hex-unit hex-unit--${kind}${active?' hex-unit--active':''}`);shape.setAttribute('data-q',pos[0]);shape.setAttribute('data-r',pos[1]);
+  const title=document.createElementNS(SVG_NS,'title');title.textContent=`${label} · axial ${pos[0]},${pos[1]}${active?' · active turn':''}`;shape.append(title);svg.append(shape);
+  if(kind==='player'){const text=document.createElementNS(SVG_NS,'text');text.setAttribute('x',x.toFixed(1));text.setAttribute('y',(y+3).toFixed(1));text.setAttribute('text-anchor','middle');text.setAttribute('class','hex-unit-label');text.textContent=(label.trim()[0]||'P').toUpperCase();svg.append(text);}
+ };
+ for(const member of players){const pos=battle.positions?.[member.id];if(pos&&!battle.escaped?.includes(member.id))unit(pos,member.name,'player',e.active_turn===member.id);}
+ for(const actor of e.actors||[])if(actor.hex)unit(actor.hex,actor.name,'foe',e.active_turn===actor.instance_id);
+ const legend=n('p','● Explorers  ◆ Encounter actors · Coordinates are axial (q, r). Terrain is visual only.','tactical-map-legend');
+ const positions=n('ul','','tactical-map-positions');
+ for(const combatant of combatants){
+  const side=combatant.kind==='player'?'EXPLORER':'ENCOUNTER ACTOR';
+  const active=combatant.active?' · ACTIVE TURN':'';
+  const item=n('li',`${side} · ${combatant.label} · AXIAL (${combatant.q}, ${combatant.r})${active}`,`tactical-map-position tactical-map-position--${combatant.kind}${combatant.active?' tactical-map-position--active':''}`);
+  if(combatant.active)item.setAttribute('aria-current','true');
+  positions.append(item);
+ }
+ wrap.append(svg,legend,positions);return wrap;
+}
 window.FieldGuide={
  render(s,id,send,stem=false){
   const p=stem?s.me:s.players.find(x=>x.id===id),f=stem?s.field_guide:p?.field_guide;
@@ -28,6 +68,7 @@ window.FieldGuide={
     const box=n('section','','field-encounter');box.append(n('h3',`ENCOUNTER / ${e.habitat.toUpperCase()} · BUDGET ${e.spent_budget||0}/${e.budget}`),n('p',e.event));
     if(e.sign)box.append(n('p',e.sign,'field-prose'));
     if(b)box.append(n('p',b.finished?'ENCOUNTER CLOSED':`ROUND ${b.round} · TURN ${s.players.find(x=>x.id===e.active_turn)?.name||e.active_turn} · YOUR AP ${b.ap[id]||0}`,'field-status'));
+     if(fighting){const tactical=tacticalBoardView(e,s.players,n);if(tactical)box.append(tactical);}
     const target=n('select');target.setAttribute('aria-label','Encounter target');
     for(const a of e.actors){
      if(a.state==='present'&&a.health>0)target.append(new Option(a.name+' / '+a.instance_id,a.instance_id));

@@ -45,9 +45,21 @@ async function main(){
   await ids('start').click();
   const panel=()=>ids('field-guide-panel');
   function findButton(text){const walk=n=>{if(n.tagName==='BUTTON'&&n._text===text)return n;for(const c of n.children){const found=walk(c);if(found)return found;}return null;};const e=walk(panel());assert.ok(e,'missing button '+text+' '+panel().textContent);return e;}
+  function findNode(root,predicate){if(predicate(root))return root;for(const child of root.children){const found=findNode(child,predicate);if(found)return found;}return null;}
   assert.ok(panel().textContent.includes('Controlled interface scenario'));
   await findButton('DRINK / 1 WATER').click();assert.ok(panel().textContent.includes('ACTIVE CYCLE 1'));
   await findButton('BEGIN LOCAL TURNS').click();assert.ok(panel().textContent.includes('ROUND 1'));
+  const tactical=findNode(panel(),e=>e.className==='tactical-map'),svg=tactical&&findNode(tactical,e=>e.tagName==='SVG');
+  assert.ok(svg,'the served client renders the isometric encounter board');
+  assert.equal(svg.children.filter(e=>e.tagName==='POLYGON'&&e.className.includes('hex-tile')).length,91);
+  assert.equal(svg.children.filter(e=>e.className.includes('hex-unit--')).length,2);
+  assert.ok(tactical.textContent.includes('VISUAL TERRAIN ONLY'));
+  const positions=findNode(tactical,e=>e.className==='tactical-map-positions');
+  assert.ok(positions,'combatant position list is visible below the map');
+  assert.equal(positions.children.filter(e=>e.tagName==='LI').length,2);
+  assert.ok(positions.textContent.includes('AXIAL (0, 0)'));
+  assert.ok(positions.textContent.includes('AXIAL (3, 0)'));
+  assert.equal(positions.children.filter(e=>e.className.includes('tactical-map-position--active')).length,1);
   await findButton('APPROACH / 1 AP').click();await findButton('APPROACH / 1 AP').click();
   await findButton('STAFF / 3 AP').click();assert.ok(panel().textContent.includes('ENCOUNTER CLOSED'));
   await findButton('RECOVER ABANDONED MATERIAL / ONCE').click();

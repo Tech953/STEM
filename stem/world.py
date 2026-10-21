@@ -70,14 +70,25 @@ def emit(w,text,kind='world',coord=None):
 
 def new_world(seed=None,layout='atlas',ruleset='field-guide-1'):
     require(layout in ['atlas','legacy'],'Invalid map layout.')
-    w=dict(version=VERSION,seed=seed or secrets.token_hex(8),tick=0,serial=0,cells={},actors=[],journal=[],reputation={r['faction']:0 for r in REGIONS.values()},started=False,paused=False,revision=0,players=[],host='',contracts_completed=0)
+    w=dict(version=VERSION,seed=seed or secrets.token_hex(8),tick=0,serial=0,cells={},revealed={},actors=[],journal=[],reputation={r['faction']:0 for r in REGIONS.values()},started=False,paused=False,revision=0,players=[],host='',contracts_completed=0)
     require(ruleset in {'legacy','field-guide-1'},'Invalid ruleset.')
     field_rules.ensure_world(w,new=ruleset=='field-guide-1')
     w['layout']=layout;w['spawn']=geography.SPAWN[:] if layout=='atlas' else [0,0];adventure.init(w)
     visit(w,*w['spawn'])
+    reveal(w,*w['spawn'])
     companions.spawn_pair(w,sys.modules[__name__])
     emit(w,'STEM begins at a new field station among the four corners. Its people, chronology and route network are a sequel adaptation; no THORNS ending is assumed.', 'story')
     return w
+
+def reveal(w,x,y,radius=1):
+    if w.get('layout')!='atlas':return
+    explored=w.setdefault('revealed',{})
+    for k in w.get('cells',{}):explored.setdefault(k,True)
+    for dy in range(-radius,radius+1):
+        for dx in range(-radius,radius+1):
+            sx,sy=x+dx,y+dy
+            if geography.MIN_X<=sx<=geography.MAX_X and geography.MIN_Y<=sy<=geography.MAX_Y:
+                explored[key(sx,sy)]=True
 
 def visit(w,x,y):
     k=key(x,y)
@@ -314,7 +325,7 @@ def act(w,p,intent,raw='',following_route=False):
         if w.get('layout')=='atlas':require(geography.info(x+dx,y+dy)['passable'],'This sector is water, outside the drawing, or the RED>GATE> barrier. Choose a mapped land route or bridge.')
         if field_rules.active(w):require(not field_rules.bulk(p)['blocked'],'Transfer supplies before moving a load over twice capacity.')
         if not following_route:p['route']=[];p['destination']=None
-        dest=visit(w,x+dx,y+dy);p['pos']=[x+dx,y+dy];out='You follow a surveyed connection '+target+' into '+dest['title']+'.'
+        dest=visit(w,x+dx,y+dy);p['pos']=[x+dx,y+dy];reveal(w,*p['pos']);out='You follow a surveyed connection '+target+' into '+dest['title']+'.'
         storm=weather(w,dest) in ['particulate storm','contrail squall'] and not dest['shelter']
         ok,mechanics=check(w,p,'body',12 if storm else 10,'transversal',dict(from_pos=[x,y]))
         if storm:
@@ -432,10 +443,11 @@ def finish(w,p,intent,raw,out,mechanics,time_cost):
 def snapshot(w,p):
     adventure.init(w)
     companions.ensure_world(w)
-    c=local(w,p);x,y=p['pos'];cells=[]
+    c=local(w,p);x,y=p['pos'];reveal(w,x,y);cells=[]
     for dy in range(-3,4):
         for dx in range(-3,4):
-            found=w['cells'].get(key(x+dx,y+dy));cells.append(dict(x=x+dx,y=y+dy,known=bool(found),title=found['title'] if found else 'Unsurveyed',region=found['region'] if found else None,shelter=found['shelter'] if found else 0,players=[a['name'] for a in w['players'] if a['pos']==[x+dx,y+dy]]))
+            cell_key=key(x+dx,y+dy);found=w['cells'].get(cell_key);mapped=geography.info(x+dx,y+dy) if cell_key in w.get('revealed',{}) and w.get('layout')=='atlas' else None
+            cells.append(dict(x=x+dx,y=y+dy,known=bool(found),revealed=bool(found or mapped),title=found['title'] if found else mapped['terrain'] if mapped else 'Unsurveyed',region=found['region'] if found else mapped['region'] if mapped else None,terrain=mapped['terrain'] if mapped else found.get('terrain') if found else None,passable=mapped['passable'] if mapped else None,shelter=found['shelter'] if found else 0,players=[a['name'] for a in w['players'] if a['pos']==[x+dx,y+dy]]))
     opportunities=[]
     if not p['remote']:
         if c['stability']<50:opportunities.append(dict(text='The habitat is losing its structural margin.',command='repair the habitat'))
@@ -445,7 +457,7 @@ def snapshot(w,p):
         if present_actor(w,p):opportunities.append(dict(text='A traveler’s current needs may connect you to this place.',command='talk to the traveler'))
         if p['contract'] and p['pos']==p['contract']['target']:opportunities.insert(0,dict(text='You have reached your '+p['contract'].get('kind','survey')+' commitment.',command='fulfill' if p['contract'].get('kind') else 'survey'))
     else:opportunities.append(dict(text='Only the received percept is available here; the physical route remains unchanged.',command='return'))
-    result=dict(character_sheet=characters.sheet(p),atlas=geography.public(p) if w.get('layout')=='atlas' else None,dialogue_options=adventure.topics(w,p),contract_options=adventure.board(w,p),local_services=(adventure.landmark(w,p) or {}).get('services',[]),version=VERSION,code=w['code'],revision=w['revision'],tick=w['tick'],phase=phase(w['tick']),season=season(w['tick']),started=w['started'],paused=w['paused'],host=w['host'],me={k:copy.deepcopy(v) for k,v in p.items() if k!='token'},players=[{k:copy.deepcopy(a[k]) for k in ['id','name','build','pos','remote']} for a in w['players']],location=copy.deepcopy(c),description=describe(w,p),weather=weather(w,c),succession=succession(c),map=cells,actors=([copy.deepcopy(adventure.resident(w,p))] if adventure.resident(w,p) else [])+[copy.deepcopy(a) for a in w['actors'] if [a['x'],a['y']]==p['pos']],journal=w['journal'][-50:],reputation=w['reputation'],discovered=len(w['cells']),help=HELP,opportunities=opportunities)
+    result=dict(character_sheet=characters.sheet(p),atlas=geography.public(p,w.get('revealed',{})) if w.get('layout')=='atlas' else None,dialogue_options=adventure.topics(w,p),contract_options=adventure.board(w,p),local_services=(adventure.landmark(w,p) or {}).get('services',[]),version=VERSION,code=w['code'],revision=w['revision'],tick=w['tick'],phase=phase(w['tick']),season=season(w['tick']),started=w['started'],paused=w['paused'],host=w['host'],me={k:copy.deepcopy(v) for k,v in p.items() if k!='token'},players=[{k:copy.deepcopy(a[k]) for k in ['id','name','build','pos','remote']} for a in w['players']],location=copy.deepcopy(c),description=describe(w,p),weather=weather(w,c),succession=succession(c),map=cells,actors=([copy.deepcopy(adventure.resident(w,p))] if adventure.resident(w,p) else [])+[copy.deepcopy(a) for a in w['actors'] if [a['x'],a['y']]==p['pos']],journal=w['journal'][-50:],reputation=w['reputation'],discovered=len(w['cells']),help=HELP,opportunities=opportunities)
     result['companions']=companions.snapshot(w,p);result['business']=institutions.public(w,p,sys.modules[__name__]);result['threat']=None if field_rules.active(w) else combat.public(c)
     result['field_guide']=field_rules.public(w,p,c)
     return result

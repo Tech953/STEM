@@ -106,7 +106,7 @@ def handle(w,p,intent,raw,engine):
    require(p['contract'] is not None,'Accept a commitment before routing to its target.');dest=dict(pos=p['contract']['target'],name=p['contract']['destination'])
   else:
    k=geo.resolve(target);require(k is not None,'Choose a named landmark from the route map.');dest=geo.LANDMARKS[k]
-  path=geo.route(p['pos'],dest['pos']);p['route']=path;p['destination']=dest['name'];out=f"Route registered to {dest['name']}: {len(path)} sectors. Travel takes each step and its survival cost; this is not teleportation."
+  path=geo.route(p['pos'],dest['pos']);p['route']=path;p['destination']=dest['name'];cycles=geo.route_cost(path);out=f"Route registered to {dest['name']}: {len(path)} sectors, estimated {cycles} travel cycles. Travel takes each step and its survival cost; this is not teleportation."
   ok,roll=engine.check(w,p,'percept',9,'fieldcraft');out+=(' Your route-reading check gives a clear traversal plan.' if ok else 'The physical route is recorded, but its conditions need cautious observation.')
  elif op=='travel':
   require(p.get('route'),'Choose a destination on the route map first.')

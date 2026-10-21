@@ -26,9 +26,27 @@ class IntegratedTests(unittest.TestCase):
  def test_route_planning_is_free_step_costs_time(self):
   original=self.p['pos'][:];cycle=self.w['tick'];result=self.act('go to Black.Dot Outpost');self.assertFalse(result['time_spent']);self.assertEqual(self.p['pos'],original)
   path=self.p['route'][:];self.assertEqual(len(path),5)
+  self.assertIn(f'estimated {g.route_cost(path)} travel cycles',result['text'])
+  self.assertEqual(g.public(self.p)['route_cycles'],g.route_cost(path))
   with patch('world.secrets.randbelow',return_value=19):
    self.act('travel next');self.assertEqual(self.p['pos'],path[0]);self.assertGreater(self.w['tick'],cycle);self.assertEqual(len(self.p['route']),4)
   self.assertEqual(self.p['destination'],'Black.Dot Outpost')
+ def test_route_prefers_lower_cycle_tiles_when_sector_count_ties(self):
+  path=g.route(g.SPAWN,g.LANDMARKS['vines']['pos'])
+  self.assertEqual(len(path),9)
+  self.assertEqual(g.route_cost(path),12)
+ def test_atlas_reveal_persists_without_generating_unvisited_sectors(self):
+  self.assertEqual(len(self.w['revealed']),9)
+  unexplored=w.key(-9,1);self.assertNotIn(unexplored,self.w['cells'])
+  self.act('north')
+  self.assertIn(unexplored,self.w['revealed']);self.assertNotIn(unexplored,self.w['cells'])
+  snap=w.snapshot(self.w,self.p)
+  self.assertIn([-9,1],snap['atlas']['revealed'])
+  tile=next(t for t in snap['map'] if (t['x'],t['y'])==(-9,1))
+  self.assertTrue(tile['revealed']);self.assertFalse(tile['known']);self.assertNotEqual(tile['title'],'Unsurveyed')
+  self.act('south')
+  self.assertIn(unexplored,self.w['revealed']);self.assertNotIn(unexplored,self.w['cells'])
+  self.assertEqual(json.loads(json.dumps(self.w))['revealed'],self.w['revealed'])
  def test_physical_river_and_border_rejection(self):
   self.p['pos']=[14,11];w.visit(self.w,14,11)
   before=self.w['tick']

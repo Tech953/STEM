@@ -427,12 +427,71 @@ def neighbors(a):
     return [[a[0]+q,a[1]+r] for q,r in [(1,0),(-1,0),(0,1),(0,-1),(1,-1),(-1,1)]]
 
 
+TACTICAL_SURFACES = {
+    'needle': (['root-laced loam', 'ash-soft ground', 'needle moss'],
+               ['windbreak', 'root lattice', 'fallen trellis']),
+    'web': (['cool alloy plate', 'weathered concrete', 'cable-woven ground'],
+            ['relay mast', 'cable trench', 'salvage frame']),
+    'gale': (['wind-cut sand', 'crystalline grit', 'contrail glass'],
+             ['drift ridge', 'survey vane', 'folded canopy']),
+    'shellwood': (['spore-dark soil', 'snailwood loam', 'mossed root-bed'],
+                  ['mollusk shell', 'vine tangle', 'fallen limb']),
+    'ark': (['glassroot earth', 'seed-core dust', 'fractech grit'],
+            ['crystal seam', 'bio-glass shard', 'root fan']),
+    'enact': (['worked foothill stone', 'archival gravel', 'terraced earth'],
+              ['boundary marker', 'broken terrace', 'stone switchback']),
+    'tar': (['resin-dark ground', 'soft tar crust', 'mounded soil'],
+            ['resin pool', 'living tunnel', 'buried marker']),
+    'bunker': (['bunker concrete', 'reinforced plate', 'dusty floor'],
+               ['sealed hatch', 'support strut', 'service conduit']),
+    'campus': (['cut stone', 'repaired paving', 'garden soil'],
+               ['lesson marker', 'low wall', 'irrigation run']),
+}
+
+
+def tactical_board(w, p, e):
+    """Generate a stable visual board without consuming or changing campaign RNG."""
+    habitat_name = e.get('habitat') or 'needle'
+    surfaces, features = TACTICAL_SURFACES.get(habitat_name, TACTICAL_SURFACES['enact'])
+    pcs = [x for x in w['players'] if position(x) == position(p) and
+           not x.get('remote') and vitals(x)['health'] > 0]
+    occupied = {(0, i) for i, _ in enumerate(pcs)}
+    previous = e.get('combat')
+    if previous and not previous.get('finished'):
+        occupied.update(tuple(pos) for identity, pos in previous.get('positions', {}).items()
+                        if identity not in previous.get('escaped', []))
+    actors = [a for a in e.get('actors', []) if live(a)]
+    occupied.update(tuple(a.get('hex', [3, i])) for i, a in enumerate(actors))
+    radius = max([5] + [distance([0, 0], list(pos)) for pos in occupied])
+    require(radius <= 12, 'Tactical maps are limited to a radius of 12 hexes.')
+    seed = f"{w.get('seed', '')}|tactical|{site_key(p)}|{e.get('id', '')}|{habitat_name}"
+    cells = []
+    for q in range(-radius, radius + 1):
+        for r in range(max(-radius, -q - radius), min(radius, -q + radius) + 1):
+            digest = hashlib.sha256(f'{seed}|{q}|{r}'.encode()).digest()
+            feature = features[digest[1] % len(features)] if digest[2] < 56 else None
+            cells.append(dict(q=q, r=r, ground=surfaces[digest[0] % len(surfaces)],
+                              feature=feature, relief=digest[3] % 3))
+    return dict(topology='axial-hex', projection='isometric', radius=radius,
+                terrain_effects='visual-only', cells=cells)
+
+
 def live(a):
     return a['health'] > 0 and a['state'] == 'present'
 
 
 def participant(w, e, identity):
     return next((p for p in w['players'] if p['id']==identity), None)
+
+
+def ensure_tactical_board(w, p, e):
+    if not e or not e.get('combat'):
+        return None
+    battle=e['combat'];generated=tactical_board(w,p,e)
+    saved=battle.get('board')
+    if not saved or generated['radius']>saved.get('radius',0):
+        battle['board']=generated
+    return battle['board']
 
 
 def combat_end(w,e):
@@ -530,6 +589,7 @@ def advance_turn(w,e):
             for a in people(w):
                 if a.get('owner')==who:
                     a['_field_ap']=8
+            ensure_tactical_board(w,p,e)
             return
         a=next(x for x in e['actors'] if x['instance_id']==who)
         if live(a):
@@ -550,7 +610,8 @@ def start_combat(w,p,e):
             entries.append((-a['initiative'],0,0,a['instance_id']))
     e['combat']=dict(order=[x[3] for x in sorted(entries)],cursor=-1,round=1,
                      pcs=[x['id'] for x in pcs],positions={x['id']:[0,i] for i,x in enumerate(pcs)},
-                     ap={},guards={},escaped=[],finished=False,conclude_pending=False)
+                     ap={},guards={},escaped=[],finished=False,conclude_pending=False,
+                     board=tactical_board(w,p,e))
     advance_turn(w,e)
 
 
@@ -775,6 +836,7 @@ def handle(w,p,op,target,cell):
         pass
     elif op=='field_end' or b['ap'][p['id']]==0 or p['id'] in b['escaped']:
         advance_turn(w,e)
+    ensure_tactical_board(w,p,e)
     e['events']=(e['events']+[result['text']])[-60:]
     return result
 
@@ -823,6 +885,7 @@ def public(w,p,cell):
         return dict(enabled=False,ruleset=RULESET,host=w.get('host'),migration='Existing campaign: original rules retained. The host may adopt Field Guide 1.0.')
     ensure_player(p);f=w['field_rules'];e=copy.deepcopy(scene(w,p));g=p['progression']
     if e and e.get('combat'):
+        ensure_tactical_board(w,p,e)
         b=e['combat'];e['active_turn']=None if b['finished'] else b['order'][b['cursor']]
         for a in e['actors']:
             a['distance']=distance(b['positions'].get(p['id'],[0,0]),a['hex'])
