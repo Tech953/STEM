@@ -470,8 +470,6 @@ def tactical_board(w, p, e):
         for r in range(max(-radius, -q - radius), min(radius, -q + radius) + 1):
             digest = hashlib.sha256(f'{seed}|{q}|{r}'.encode()).digest()
             feature = features[digest[1] % len(features)] if digest[2] < 56 else None
-            if (q, r) in occupied:
-                feature = None
             cells.append(dict(q=q, r=r, ground=surfaces[digest[0] % len(surfaces)],
                               feature=feature, relief=digest[3] % 3))
     return dict(topology='axial-hex', projection='isometric', radius=radius,
@@ -484,6 +482,16 @@ def live(a):
 
 def participant(w, e, identity):
     return next((p for p in w['players'] if p['id']==identity), None)
+
+
+def ensure_tactical_board(w, p, e):
+    if not e or not e.get('combat'):
+        return None
+    battle=e['combat'];generated=tactical_board(w,p,e)
+    saved=battle.get('board')
+    if not saved or generated['radius']>saved.get('radius',0):
+        battle['board']=generated
+    return battle['board']
 
 
 def combat_end(w,e):
@@ -581,6 +589,7 @@ def advance_turn(w,e):
             for a in people(w):
                 if a.get('owner')==who:
                     a['_field_ap']=8
+            ensure_tactical_board(w,p,e)
             return
         a=next(x for x in e['actors'] if x['instance_id']==who)
         if live(a):
@@ -827,6 +836,7 @@ def handle(w,p,op,target,cell):
         pass
     elif op=='field_end' or b['ap'][p['id']]==0 or p['id'] in b['escaped']:
         advance_turn(w,e)
+    ensure_tactical_board(w,p,e)
     e['events']=(e['events']+[result['text']])[-60:]
     return result
 
@@ -875,7 +885,7 @@ def public(w,p,cell):
         return dict(enabled=False,ruleset=RULESET,host=w.get('host'),migration='Existing campaign: original rules retained. The host may adopt Field Guide 1.0.')
     ensure_player(p);f=w['field_rules'];live_scene=scene(w,p)
     if live_scene and live_scene.get('combat'):
-        live_scene['combat'].setdefault('board',tactical_board(w,p,live_scene))
+        ensure_tactical_board(w,p,live_scene)
     e=copy.deepcopy(live_scene);g=p['progression']
     if e and e.get('combat'):
         b=e['combat'];e['active_turn']=None if b['finished'] else b['order'][b['cursor']]

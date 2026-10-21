@@ -215,12 +215,34 @@ class FieldGuideTests(unittest.TestCase):
         self.assertEqual((board['radius'],len(board['cells'])),(5,91))
         self.assertTrue(all(f.distance([0,0],[c['q'],c['r']])<=board['radius']
                             for c in board['cells']))
-        by_hex={(c['q'],c['r']):c for c in board['cells']}
-        self.assertIsNone(by_hex[(0,0)]['feature'])
-        self.assertIsNone(by_hex[tuple(a['hex'])]['feature'])
         f.start_combat(w,p,e)
         self.assertEqual(e['combat']['board'],board)
         self.assertEqual(w['field_rules']['rng_counter'],counter+1)
+
+    def test_active_tactical_board_expands_without_rerolling_terrain(self):
+        w=self.fetch();p=self.player(w);e,_=self.encounter(w,p)
+        f.start_combat(w,p,e)
+        original={(c['q'],c['r']):c for c in e['combat']['board']['cells']}
+        e['combat']['positions'][p['id']]=[0,7]
+        guide=f.public(w,p,self.local(w,p))
+        board=guide['encounter']['combat']['board']
+        expanded={(c['q'],c['r']):c for c in board['cells']}
+        self.assertEqual((board['radius'],len(board['cells'])),(7,169))
+        self.assertEqual({k:expanded[k] for k in original},original)
+        self.assertEqual(e['combat']['board']['radius'],7)
+
+    def test_retreat_expands_and_persists_the_tactical_board(self):
+        w=self.fetch();p=self.player(w);e,a=self.encounter(w,p)
+        f.start_combat(w,p,e)
+        original={(c['q'],c['r']):c for c in e['combat']['board']['cells']}
+        for _ in range(6):
+            f.handle(w,p,'field_retreat',a['instance_id'],self.local(w,p))
+        board=e['combat']['board']
+        expanded={(c['q'],c['r']):c for c in board['cells']}
+        self.assertEqual(board['radius'],6)
+        self.assertEqual(len(board['cells']),127)
+        self.assertEqual({k:expanded[k] for k in original},original)
+        self.assertEqual(e['combat']['positions'][p['id']],[-6,0])
 
     def test_tactical_board_expands_to_include_long_starting_distance(self):
         w=self.fetch();p=self.player(w);e,a=self.encounter(w,p,hex=[10,0])
