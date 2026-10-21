@@ -1,0 +1,51 @@
+{
+  "date": "2026-10-18",
+  "shared_generation_version": "1.0.0",
+  "shared_sha256": "3f7331aeed0ed0059d310d7a59c6a7e7863d0cb01cc047ff39b1a85781de8b31",
+  "python": {
+    "Thorns": {
+      "version": "0.5.0",
+      "passed": 36
+    },
+    "Stem": {
+      "version": "0.4.0",
+      "passed": 81
+    },
+    "Rose": {
+      "version": "0.19.0",
+      "passed": 451
+    }
+  },
+  "interface": {
+    "Thorns": "PASS / contact control harness and existing HTTP tests",
+    "Stem": "PASS / real HTTP and semantic DOM",
+    "Rose": {
+      "status": "PASS / all six isolated flows",
+      "flows": [
+        "core",
+        "direction",
+        "materials",
+        "weather",
+        "animations",
+        "particles"
+      ],
+      "run_note": "The first full run passed five flows and exposed a particle-test creation-readiness timeout. The particle flow passed after waiting explicitly for character creation and all 19 generation controls."
+    }
+  },
+  "extra_check": "Rose engine/blueprint suite: 51 tests passed after the content export fields were added.",
+  "asset_preservation": {
+    "thorns": {
+      "preserved_raster_and_blender_assets": 2,
+      "excluded": "regenerated documentation previews"
+    },
+    "stem": {
+      "preserved_raster_and_blender_assets": 2,
+      "excluded": "regenerated documentation previews"
+    },
+    "rose": {
+      "preserved_raster_and_blender_assets": 632,
+      "excluded": "regenerated documentation previews"
+    }
+  },
+  "scope": "Automated Python rules, real HTTP, semantic DOM and Rose native canvas. Full-browser layout, audible playback, external model inference and human balance were not tested."
+}

@@ -1,0 +1,44 @@
+{
+  "releases": {
+    "Thorns": "0.6.0",
+    "Stem": "0.5.0"
+  },
+  "python_tests": {
+    "Thorns": 69,
+    "Stem": 114
+  },
+  "new_http_dom_flows": 20,
+  "rendered_browser_verified": false,
+  "map_assets": [
+    {
+      "game": "thorns-rpg",
+      "path": "static/needle-map.jpg",
+      "sha256": "cad83885defe89ba6d92acd0b0194c24bbfa8e6b13e73acbdb6a56c01cb9dd56"
+    },
+    {
+      "game": "thorns-rpg",
+      "path": "static/world-map.jpg",
+      "sha256": "a36109c6d4157b9ef9d77006298fa46b07be461c564be792f9111a4f01cb7ccc"
+    },
+    {
+      "game": "stem",
+      "path": "reference/maps/world-reference-1.jpg",
+      "sha256": "a36109c6d4157b9ef9d77006298fa46b07be461c564be792f9111a4f01cb7ccc"
+    },
+    {
+      "game": "stem",
+      "path": "reference/maps/world-reference-2.jpg",
+      "sha256": "cad83885defe89ba6d92acd0b0194c24bbfa8e6b13e73acbdb6a56c01cb9dd56"
+    },
+    {
+      "game": "stem",
+      "path": "static/atlas.svg",
+      "sha256": "eab53b4f58c78f20bfc626c2813398589512b709fe35aef5d2c6fe36674c3d4b"
+    }
+  ],
+  "shared_files": {
+    "field_rules.py": "0c0d7d9617449c5111e4cb5d8e60f63cc6496db66611282d4cd6774dea7e5ca0",
+    "creature_catalog.json": "c256c0f95113750e77e49248247f2e393c1b2466d61ecc0b749c39c87a2b1f5c",
+    "static/field-guide.js": "443a81e57be8f72dae03a9d79daf1bff680ccf4fc885f27633ab76a08ff40fda"
+  }
+}

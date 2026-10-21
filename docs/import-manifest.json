@@ -1,0 +1,171 @@
+{
+  "schema": 1,
+  "project": "Stem",
+  "imported_on": "2026-10-20",
+  "saved_project_version": "0.5.0",
+  "source_package": "Stem-Prototype.zip",
+  "source_package_sha256": "254cca3dc443bbd86ce2a7076ee114077d1773c1c470759a6ad3f6b3c4f67302",
+  "scope": "Authored documents, supplemented by the complete original game package and, for Rose, the separately developed physics lab.",
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 1109,
+      "sha256": "78b653ee89a6b8335ef22930c4321797fa08969d0d682121f6d64f46893799d1",
+      "git_blob_sha": "5ceaab8e0055117142f50c169ab0fec833807217",
+      "source_file": "generated complete-project index",
+      "source_member": ""
+    },
+    {
+      "path": "docs/CHANGELOG.md",
+      "size_bytes": 4600,
+      "sha256": "3a2dc3fef4fd03855116bd6b7fdeb97655479770b0db9f413c3fcce2ba7d8168",
+      "git_blob_sha": "18e28f251a787bec2a8491407baf571ea67d675a",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/CHANGELOG.md"
+    },
+    {
+      "path": "docs/CONTENT-GENERATION-REFINEMENT.md",
+      "size_bytes": 6339,
+      "sha256": "e0c0d65f84d1bb179606d2c8e1f5509c487bfdb6ea7cd64a6b2a9814bab84dd7",
+      "git_blob_sha": "5c935b8615b384f06f6a86455c48e5c093c67a5e",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/CONTENT-GENERATION-REFINEMENT.md"
+    },
+    {
+      "path": "docs/CONTENT-GENERATION-VALIDATION.json",
+      "size_bytes": 1649,
+      "sha256": "65a922499ea250428e8cbd8884aa6414c0dc2e0f59e12978362de005a9541c41",
+      "git_blob_sha": "f1da807574f70ffa901799789497d0da2fe1dc9d",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/CONTENT-GENERATION-VALIDATION.json"
+    },
+    {
+      "path": "docs/DESIGN-AND-LORE.md",
+      "size_bytes": 6986,
+      "sha256": "111b14403d4bd0aea0aeadfce0789645d9db3ee000089105a49d587ba31a1761",
+      "git_blob_sha": "d485fcc353623f0101975107fe1519be018ad231",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/DESIGN-AND-LORE.md"
+    },
+    {
+      "path": "docs/FIELD-GUIDE-UPDATE.md",
+      "size_bytes": 14119,
+      "sha256": "40f12a83547b4f24992137e7d2beac6d79eb4e710729ad874952828fc9677297",
+      "git_blob_sha": "8fa55b499ae3d10fa178bedf266ed8ba669dbff6",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/FIELD-GUIDE-UPDATE.md"
+    },
+    {
+      "path": "docs/FIELD-GUIDE-VALIDATION.json",
+      "size_bytes": 1343,
+      "sha256": "6c4194cc1aca49863217fc95ddfd46730572672d30bb0d64741d0919beb89c25",
+      "git_blob_sha": "03f951d63a5d8e81f36725515243c28c5709b22f",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/FIELD-GUIDE-VALIDATION.json"
+    },
+    {
+      "path": "docs/FIELD-GUIDE-VALIDATION.md",
+      "size_bytes": 3153,
+      "sha256": "1bd33f8ba264b4768aba10c228adf10c386f46ae3b14617c3f7d3e5f68e034d2",
+      "git_blob_sha": "3d843f65516b310d49b1eaabd6891dce656ac47e",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/FIELD-GUIDE-VALIDATION.md"
+    },
+    {
+      "path": "docs/MAP-CONVERSION.md",
+      "size_bytes": 8285,
+      "sha256": "10daf7f4629c412d2c2e30c56033022fc3fd53dcaacf50d01476d22de217a3b9",
+      "git_blob_sha": "e7587cd41032462eab91ef082046b673431c3b66",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/MAP-CONVERSION.md"
+    },
+    {
+      "path": "docs/PROJECT-README.md",
+      "size_bytes": 3477,
+      "sha256": "49767b7fa997084936faa152915ad9eeeee8e14ef67b4e7d00e9be54e7c7d841",
+      "git_blob_sha": "8c2b88cdebb97ff5cde535797939e32261979fc0",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/README.md"
+    },
+    {
+      "path": "docs/README-HISTORY.md",
+      "size_bytes": 14416,
+      "sha256": "4560044144e691c44c1e8ab3453fcac1ee8bcbad67c135d6deff444c54546c79",
+      "git_blob_sha": "52752b93bb14c52f106c6fc7cf4917e114adca03",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/README-HISTORY.md"
+    },
+    {
+      "path": "docs/README.md",
+      "size_bytes": 1737,
+      "sha256": "786f04cedd4b5aeb3d2f7288a6898815e2336d178327ac9953bf5ba964b5b0cd",
+      "git_blob_sha": "b87fb92acb0de0d57e89e1eb4d55ba7761aea010",
+      "source_file": "generated documentation index",
+      "source_member": ""
+    },
+    {
+      "path": "docs/RULES.md",
+      "size_bytes": 11894,
+      "sha256": "1cf58110537f00b62e9fb022c6adcdd98aa7f46ca97cf9e9e4e4d3b2d07ebc18",
+      "git_blob_sha": "c8cbcb94f1fba48840809d3994c5972ae4de7116",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/RULES.md"
+    },
+    {
+      "path": "docs/SYSTEMS-UPDATE-2026-10-18.md",
+      "size_bytes": 2906,
+      "sha256": "e5fdf0f77b10996369da0218f2cd134795f96086f8e50ab4123657e30cf0e6a7",
+      "git_blob_sha": "0f2a3d3e632eede99a52f7be4bca8c59037ac374",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/SYSTEMS-UPDATE-2026-10-18.md"
+    },
+    {
+      "path": "docs/SYSTEMS.md",
+      "size_bytes": 14894,
+      "sha256": "9d490a50ae709d76b94161864105162a3ff3800b617f2c24dc5f0fa330b9e7be",
+      "git_blob_sha": "eec0b03cb1da50104bb033d23994a51a250a7210",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/SYSTEMS.md"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "size_bytes": 6187,
+      "sha256": "9c813cfd69ae91dcbc3075b61bed239dd29e9623e4ff223ef8990fa2a6f394ab",
+      "git_blob_sha": "17c80ca2bc060126771377c68d0df0c983e7172f",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/VALIDATION.md"
+    },
+    {
+      "path": "docs/reference-data/creature_catalog.json",
+      "size_bytes": 59695,
+      "sha256": "c256c0f95113750e77e49248247f2e393c1b2466d61ecc0b749c39c87a2b1f5c",
+      "git_blob_sha": "fbf047f48d2e7b7df8a7981a8ae2622a4deb49b8",
+      "source_file": "Stem-Prototype.zip",
+      "source_member": "stem/creature_catalog.json"
+    },
+    {
+      "path": "docs/shared/Thorns-Stem-Rose-Character-Sheet.pdf",
+      "size_bytes": 253181,
+      "sha256": "d2920278171ce94157e669d9eb2839e75c4a30e205f78c5646b6f49dc9d5f3c3",
+      "git_blob_sha": "6d89951d334ad5f8976089ebd2a44b9bc95866f7",
+      "source_file": "Thorns-Stem-Rose-Character-Sheet.pdf",
+      "source_member": ""
+    },
+    {
+      "path": "docs/shared/Thorns-Stem-Rose-Creature-and-Stat-Guide.pdf",
+      "size_bytes": 571272,
+      "sha256": "d5524dbe1b2802c72b44896338eba6e9161c0a55edf67e0520a9f4307f121baa",
+      "git_blob_sha": "a2027cd6efb4371176d70e80033fba3055aabd3b",
+      "source_file": "Thorns-Stem-Rose-Creature-and-Stat-Guide.pdf",
+      "source_member": ""
+    },
+    {
+      "path": "docs/shared/Thorns-Stem-Rose-Encounter-Toolkit.pdf",
+      "size_bytes": 77151,
+      "sha256": "f49071f0829fef72d73eb5a3fe679a5d3375e6aaeae5f7b04ac2d88de39bcc07",
+      "git_blob_sha": "0c204e26275515264218f8f4a4dc83649ac27325",
+      "source_file": "Thorns-Stem-Rose-Encounter-Toolkit.pdf",
+      "source_member": ""
+    }
+  ]
+}

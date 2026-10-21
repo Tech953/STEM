@@ -1,0 +1,527 @@
+{
+  "schema": 1,
+  "project": "Stem",
+  "saved_version": "0.5.0",
+  "import_date": "2026-10-20",
+  "source_archive": "Stem-Prototype.zip",
+  "source_archive_sha256": "254cca3dc443bbd86ce2a7076ee114077d1773c1c470759a6ad3f6b3c4f67302",
+  "original_archive_files": 52,
+  "original_archive_coverage": "100% byte-for-byte",
+  "physics_lab_source_commit": null,
+  "physics_lab_tracked_files": 0,
+  "python_syntax_files_checked": 20,
+  "scope": "All listed files plus this manifest. Existing remote-only files are preserved and verified separately during publication.",
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 1109,
+      "sha256": "78b653ee89a6b8335ef22930c4321797fa08969d0d682121f6d64f46893799d1",
+      "git_blob_sha": "5ceaab8e0055117142f50c169ab0fec833807217",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/CHANGELOG.md",
+      "size_bytes": 4600,
+      "sha256": "3a2dc3fef4fd03855116bd6b7fdeb97655479770b0db9f413c3fcce2ba7d8168",
+      "git_blob_sha": "18e28f251a787bec2a8491407baf571ea67d675a",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/CONTENT-GENERATION-REFINEMENT.md",
+      "size_bytes": 6339,
+      "sha256": "e0c0d65f84d1bb179606d2c8e1f5509c487bfdb6ea7cd64a6b2a9814bab84dd7",
+      "git_blob_sha": "5c935b8615b384f06f6a86455c48e5c093c67a5e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/CONTENT-GENERATION-VALIDATION.json",
+      "size_bytes": 1649,
+      "sha256": "65a922499ea250428e8cbd8884aa6414c0dc2e0f59e12978362de005a9541c41",
+      "git_blob_sha": "f1da807574f70ffa901799789497d0da2fe1dc9d",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/DESIGN-AND-LORE.md",
+      "size_bytes": 6986,
+      "sha256": "111b14403d4bd0aea0aeadfce0789645d9db3ee000089105a49d587ba31a1761",
+      "git_blob_sha": "d485fcc353623f0101975107fe1519be018ad231",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/FIELD-GUIDE-UPDATE.md",
+      "size_bytes": 14119,
+      "sha256": "40f12a83547b4f24992137e7d2beac6d79eb4e710729ad874952828fc9677297",
+      "git_blob_sha": "8fa55b499ae3d10fa178bedf266ed8ba669dbff6",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/FIELD-GUIDE-VALIDATION.json",
+      "size_bytes": 1343,
+      "sha256": "6c4194cc1aca49863217fc95ddfd46730572672d30bb0d64741d0919beb89c25",
+      "git_blob_sha": "03f951d63a5d8e81f36725515243c28c5709b22f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/FIELD-GUIDE-VALIDATION.md",
+      "size_bytes": 3153,
+      "sha256": "1bd33f8ba264b4768aba10c228adf10c386f46ae3b14617c3f7d3e5f68e034d2",
+      "git_blob_sha": "3d843f65516b310d49b1eaabd6891dce656ac47e",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/MAP-CONVERSION.md",
+      "size_bytes": 8285,
+      "sha256": "10daf7f4629c412d2c2e30c56033022fc3fd53dcaacf50d01476d22de217a3b9",
+      "git_blob_sha": "e7587cd41032462eab91ef082046b673431c3b66",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/PROJECT-README.md",
+      "size_bytes": 3477,
+      "sha256": "49767b7fa997084936faa152915ad9eeeee8e14ef67b4e7d00e9be54e7c7d841",
+      "git_blob_sha": "8c2b88cdebb97ff5cde535797939e32261979fc0",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/README-HISTORY.md",
+      "size_bytes": 14416,
+      "sha256": "4560044144e691c44c1e8ab3453fcac1ee8bcbad67c135d6deff444c54546c79",
+      "git_blob_sha": "52752b93bb14c52f106c6fc7cf4917e114adca03",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/README.md",
+      "size_bytes": 1737,
+      "sha256": "786f04cedd4b5aeb3d2f7288a6898815e2336d178327ac9953bf5ba964b5b0cd",
+      "git_blob_sha": "b87fb92acb0de0d57e89e1eb4d55ba7761aea010",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/RULES.md",
+      "size_bytes": 11894,
+      "sha256": "1cf58110537f00b62e9fb022c6adcdd98aa7f46ca97cf9e9e4e4d3b2d07ebc18",
+      "git_blob_sha": "c8cbcb94f1fba48840809d3994c5972ae4de7116",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/SYSTEMS-UPDATE-2026-10-18.md",
+      "size_bytes": 2906,
+      "sha256": "e5fdf0f77b10996369da0218f2cd134795f96086f8e50ab4123657e30cf0e6a7",
+      "git_blob_sha": "0f2a3d3e632eede99a52f7be4bca8c59037ac374",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/SYSTEMS.md",
+      "size_bytes": 14894,
+      "sha256": "9d490a50ae709d76b94161864105162a3ff3800b617f2c24dc5f0fa330b9e7be",
+      "git_blob_sha": "eec0b03cb1da50104bb033d23994a51a250a7210",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/VALIDATION.md",
+      "size_bytes": 6187,
+      "sha256": "9c813cfd69ae91dcbc3075b61bed239dd29e9623e4ff223ef8990fa2a6f394ab",
+      "git_blob_sha": "17c80ca2bc060126771377c68d0df0c983e7172f",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/import-manifest.json",
+      "size_bytes": 6951,
+      "sha256": "cc659d16db4d38c09b57218cae0e5ff3b855ba16265ce955256ce2827719780b",
+      "git_blob_sha": "3773bcb93678ae6b108ba639c7d5f7586c8bded4",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/reference-data/creature_catalog.json",
+      "size_bytes": 59695,
+      "sha256": "c256c0f95113750e77e49248247f2e393c1b2466d61ecc0b749c39c87a2b1f5c",
+      "git_blob_sha": "fbf047f48d2e7b7df8a7981a8ae2622a4deb49b8",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/shared/Thorns-Stem-Rose-Character-Sheet.pdf",
+      "size_bytes": 253181,
+      "sha256": "d2920278171ce94157e669d9eb2839e75c4a30e205f78c5646b6f49dc9d5f3c3",
+      "git_blob_sha": "6d89951d334ad5f8976089ebd2a44b9bc95866f7",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/shared/Thorns-Stem-Rose-Creature-and-Stat-Guide.pdf",
+      "size_bytes": 571272,
+      "sha256": "d5524dbe1b2802c72b44896338eba6e9161c0a55edf67e0520a9f4307f121baa",
+      "git_blob_sha": "a2027cd6efb4371176d70e80033fba3055aabd3b",
+      "mode": "100644"
+    },
+    {
+      "path": "docs/shared/Thorns-Stem-Rose-Encounter-Toolkit.pdf",
+      "size_bytes": 77151,
+      "sha256": "f49071f0829fef72d73eb5a3fe679a5d3375e6aaeae5f7b04ac2d88de39bcc07",
+      "git_blob_sha": "0c204e26275515264218f8f4a4dc83649ac27325",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/CHANGELOG.md",
+      "size_bytes": 4600,
+      "sha256": "3a2dc3fef4fd03855116bd6b7fdeb97655479770b0db9f413c3fcce2ba7d8168",
+      "git_blob_sha": "18e28f251a787bec2a8491407baf571ea67d675a",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/CONTENT-GENERATION-REFINEMENT.md",
+      "size_bytes": 6339,
+      "sha256": "e0c0d65f84d1bb179606d2c8e1f5509c487bfdb6ea7cd64a6b2a9814bab84dd7",
+      "git_blob_sha": "5c935b8615b384f06f6a86455c48e5c093c67a5e",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/CONTENT-GENERATION-VALIDATION.json",
+      "size_bytes": 1649,
+      "sha256": "65a922499ea250428e8cbd8884aa6414c0dc2e0f59e12978362de005a9541c41",
+      "git_blob_sha": "f1da807574f70ffa901799789497d0da2fe1dc9d",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/DESIGN-AND-LORE.md",
+      "size_bytes": 6986,
+      "sha256": "111b14403d4bd0aea0aeadfce0789645d9db3ee000089105a49d587ba31a1761",
+      "git_blob_sha": "d485fcc353623f0101975107fe1519be018ad231",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/FIELD-GUIDE-UPDATE.md",
+      "size_bytes": 14119,
+      "sha256": "40f12a83547b4f24992137e7d2beac6d79eb4e710729ad874952828fc9677297",
+      "git_blob_sha": "8fa55b499ae3d10fa178bedf266ed8ba669dbff6",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/FIELD-GUIDE-VALIDATION.json",
+      "size_bytes": 1343,
+      "sha256": "6c4194cc1aca49863217fc95ddfd46730572672d30bb0d64741d0919beb89c25",
+      "git_blob_sha": "03f951d63a5d8e81f36725515243c28c5709b22f",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/FIELD-GUIDE-VALIDATION.md",
+      "size_bytes": 3153,
+      "sha256": "1bd33f8ba264b4768aba10c228adf10c386f46ae3b14617c3f7d3e5f68e034d2",
+      "git_blob_sha": "3d843f65516b310d49b1eaabd6891dce656ac47e",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/MAP-CONVERSION.md",
+      "size_bytes": 8285,
+      "sha256": "10daf7f4629c412d2c2e30c56033022fc3fd53dcaacf50d01476d22de217a3b9",
+      "git_blob_sha": "e7587cd41032462eab91ef082046b673431c3b66",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/README-HISTORY.md",
+      "size_bytes": 14416,
+      "sha256": "4560044144e691c44c1e8ab3453fcac1ee8bcbad67c135d6deff444c54546c79",
+      "git_blob_sha": "52752b93bb14c52f106c6fc7cf4917e114adca03",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/README.md",
+      "size_bytes": 3477,
+      "sha256": "49767b7fa997084936faa152915ad9eeeee8e14ef67b4e7d00e9be54e7c7d841",
+      "git_blob_sha": "8c2b88cdebb97ff5cde535797939e32261979fc0",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/RULES.md",
+      "size_bytes": 11894,
+      "sha256": "1cf58110537f00b62e9fb022c6adcdd98aa7f46ca97cf9e9e4e4d3b2d07ebc18",
+      "git_blob_sha": "c8cbcb94f1fba48840809d3994c5972ae4de7116",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/SYSTEMS-UPDATE-2026-10-18.md",
+      "size_bytes": 2906,
+      "sha256": "e5fdf0f77b10996369da0218f2cd134795f96086f8e50ab4123657e30cf0e6a7",
+      "git_blob_sha": "0f2a3d3e632eede99a52f7be4bca8c59037ac374",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/SYSTEMS.md",
+      "size_bytes": 14894,
+      "sha256": "9d490a50ae709d76b94161864105162a3ff3800b617f2c24dc5f0fa330b9e7be",
+      "git_blob_sha": "eec0b03cb1da50104bb033d23994a51a250a7210",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/Start-Windows.bat",
+      "size_bytes": 227,
+      "sha256": "02d12381fe6376db2e53a05621f92580aed578c7152fb13e1802aab61975ffc8",
+      "git_blob_sha": "277385ecb0431b1dfac8598b30da19885bdb47e0",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/VALIDATION.md",
+      "size_bytes": 6187,
+      "sha256": "9c813cfd69ae91dcbc3075b61bed239dd29e9623e4ff223ef8990fa2a6f394ab",
+      "git_blob_sha": "17c80ca2bc060126771377c68d0df0c983e7172f",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/adventure.py",
+      "size_bytes": 23705,
+      "sha256": "fd749c219b2dd57d1aecc95bfabb8b2ae9ed6bc630e3d9c80851adc938e67522",
+      "git_blob_sha": "71eaed527673837ec2c8376c0cbb0768cf1fab15",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/characters.py",
+      "size_bytes": 11983,
+      "sha256": "5d388417404a3b627e554684cef4e4eb2c1a50b13ebac9313098cbd5ea164968",
+      "git_blob_sha": "898b2c8fe39b7015bb6589130759176054959713",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/checks.py",
+      "size_bytes": 6463,
+      "sha256": "818ec01da8781813466050e3734e27b53a50512fbe85ff94afb74eaef4483fd3",
+      "git_blob_sha": "741e78e924da478e0fe38a2b5534986a62e86a85",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/combat.py",
+      "size_bytes": 5322,
+      "sha256": "b1134b0a217b3314b4b050245317c14752f209075589a122f563a1987a861428",
+      "git_blob_sha": "63f322095c8261916adf26da6488f3a1c1deccd1",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/companions.py",
+      "size_bytes": 24086,
+      "sha256": "5ebaa9c748e3ffb0c5c4736642064067ca6fe93a343431e6f799b84194d67423",
+      "git_blob_sha": "450de2592178bd3889d0aced2525ff616d01fb32",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/creature_catalog.json",
+      "size_bytes": 59695,
+      "sha256": "c256c0f95113750e77e49248247f2e393c1b2466d61ecc0b749c39c87a2b1f5c",
+      "git_blob_sha": "fbf047f48d2e7b7df8a7981a8ae2622a4deb49b8",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/field_adventure.py",
+      "size_bytes": 4083,
+      "sha256": "055779ab8beebf98473dacf5bf0dbc634c17e0d1bb6def4ee560e887a17aee83",
+      "git_blob_sha": "8b69a753b01a164afa7348519faee7d07fb0bf69",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/field_rules.py",
+      "size_bytes": 43560,
+      "sha256": "0c0d7d9617449c5111e4cb5d8e60f63cc6496db66611282d4cd6774dea7e5ca0",
+      "git_blob_sha": "ba8db78aabccee2b0a34a979adf32ef972344727",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/generation.py",
+      "size_bytes": 11566,
+      "sha256": "3f7331aeed0ed0059d310d7a59c6a7e7863d0cb01cc047ff39b1a85781de8b31",
+      "git_blob_sha": "77f1fe52cb5a5e2834602c830979559a0167e85f",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/geography.py",
+      "size_bytes": 13079,
+      "sha256": "a5e6679a4422b154f7da9af8d60abab401274ac4c117abc0c9d1123fafafc3cc",
+      "git_blob_sha": "ec2a0b37a69bff57de62e5ffa6711a59cd470ffd",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/institutions.py",
+      "size_bytes": 7058,
+      "sha256": "fa9b646ca50c26fa64ed08b10add02da40866542f7cec5cbd28d362b6bef7fdf",
+      "git_blob_sha": "621454a7fa5bfeab6a33f3466cf01b52fe23e1fc",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/narrator.py",
+      "size_bytes": 7524,
+      "sha256": "aca5c1de49bb164a197142e3ec85b94a14d19a081e30c03667b3f524ad6e0eba",
+      "git_blob_sha": "27979467fcab6fc6e403aaad52371a73253ab033",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/reference/AETHERGALE - THORNS.txt",
+      "size_bytes": 6611,
+      "sha256": "257b372ab6a390d9008a8bb8f444ca97b76901fd734fb8e10011c5addca759f1",
+      "git_blob_sha": "c6b4172b2cb5dd21e403605e1edf283b440078ca",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/reference/CITY_CLOUD_S - THORNS.txt",
+      "size_bytes": 5805,
+      "sha256": "b06fad45014ad927a607c7a8ababc13903b16f7120e994e81b7f0542ade078ee",
+      "git_blob_sha": "16fb518634418a20bf028725191451f829392853",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/reference/ENACT_HILLS - THORNS.txt",
+      "size_bytes": 7386,
+      "sha256": "b754f6a41005dd216340ae4e15257e9ff82deacdd6612d5ba77579bced289b69",
+      "git_blob_sha": "3e5e3090b99ff7b39efc18142e65b0d19d403cb0",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/reference/NULL_FIELD.OMNI - THORNS.txt",
+      "size_bytes": 8962,
+      "sha256": "def9355f32be310202ce35640834f74c2352ec1c0344d3b1983333ea6d8abd8e",
+      "git_blob_sha": "cdfce96d0708151badc8c906a9ced8ef7060271c",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/reference/WN_TOWER Reference.txt",
+      "size_bytes": 21450,
+      "sha256": "65d3cbaad64d3c96c21189a93a3054b2d74290224f862c4ac98cc268321dca2c",
+      "git_blob_sha": "e569d759f49b5e3cdcbdfd2762b80077de44f26b",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/reference/maps/world-reference-1.jpg",
+      "size_bytes": 738323,
+      "sha256": "a36109c6d4157b9ef9d77006298fa46b07be461c564be792f9111a4f01cb7ccc",
+      "git_blob_sha": "463dce481cf70dee11e91394cff3f1cb00fb85ec",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/reference/maps/world-reference-2.jpg",
+      "size_bytes": 433288,
+      "sha256": "cad83885defe89ba6d92acd0b0194c24bbfa8e6b13e73acbdb6a56c01cb9dd56",
+      "git_blob_sha": "683f91dc50940453c8cc1d7ab154bc11ef303a7a",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/server.py",
+      "size_bytes": 12531,
+      "sha256": "34f0c64074660cf3ee51b6703c93af6434c943e94482cd5a4563511f18205a41",
+      "git_blob_sha": "1ac2793c9eb89a0572688cac3ec2c33ec0694b9b",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/start.sh",
+      "size_bytes": 75,
+      "sha256": "b4bc5736671e8d333b84e458f9e82744ffda063bf6471809ccc4c0d2e073d0f7",
+      "git_blob_sha": "097b17f76af3518c8798c5e78c10b3e3b12707c9",
+      "mode": "100755"
+    },
+    {
+      "path": "stem/static/app.js",
+      "size_bytes": 22434,
+      "sha256": "8338749113f0a481522c870b356e06cd60d8713181b15bf085c3e1f344ea8533",
+      "git_blob_sha": "96519f320580c13113c5706581b045e5448e7821",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/static/atlas.svg",
+      "size_bytes": 76363,
+      "sha256": "eab53b4f58c78f20bfc626c2813398589512b709fe35aef5d2c6fe36674c3d4b",
+      "git_blob_sha": "fe916f38ee6fb7aafa38b862e61def84cea0a356",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/static/creator.js",
+      "size_bytes": 5332,
+      "sha256": "143440428bd148a5cde1b49fb641f8279980a8ba6b9ba9d79e3cfd6b0544ed40",
+      "git_blob_sha": "14d53e80b5daeac3834a76d25a448d120601d786",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/static/field-guide.js",
+      "size_bytes": 8526,
+      "sha256": "443a81e57be8f72dae03a9d79daf1bff680ccf4fc885f27633ab76a08ff40fda",
+      "git_blob_sha": "37b84502f7ee4c2e3da78cf565510f16f30e70f3",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/static/index.html",
+      "size_bytes": 11118,
+      "sha256": "58a8c4390b1acee71549f67fe7d950f31c0fe5b520bed0263d60f95651bc3522",
+      "git_blob_sha": "c780b75967cb5ef10ea68b830b129a60ffdc995d",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/static/style.css",
+      "size_bytes": 11554,
+      "sha256": "a93b243bc3f5a4dc6a93aca1053e2c02d180a51336150c4e454d96af1e718431",
+      "git_blob_sha": "275d8bf6467e1cf4908a2936885e18466dc5c532",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/survival.py",
+      "size_bytes": 980,
+      "sha256": "4e51b46e1c2844d288cc6ff70bf3f490613337178347660e41fdc673ab1fa252",
+      "git_blob_sha": "03da0de9201e42409813d6716b8e7e0c8bf16bd8",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/tests/test_content_grammar.py",
+      "size_bytes": 4551,
+      "sha256": "add12fc5c966c8142886f518bf866268ff9aef55379c3cfcb1f2d04aee46bbb5",
+      "git_blob_sha": "56ac0078f5530c689c32ec6f328533c5f92a64e7",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/tests/test_content_integration.py",
+      "size_bytes": 3076,
+      "sha256": "edb536c3a8a7db1ee5d70ac1126a75c25496e105f5b7a762f110f584c1a6a4d2",
+      "git_blob_sha": "b61a749997bd9779658617c31fbe9a45708caf84",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/tests/test_expedition.py",
+      "size_bytes": 15895,
+      "sha256": "af449dd3064627fc4355c667216bdeebd11a629cee56fe81a5a247138aa1b9e2",
+      "git_blob_sha": "4db199e64e38f047967af69690fe9c0da10bdea4",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/tests/test_field_guide.py",
+      "size_bytes": 21739,
+      "sha256": "013654ced6d98931280f38b97a7cb576bcfbce7c8880ee740ac179a7e0ee5c7b",
+      "git_blob_sha": "197e3ec30fe422048d808ffce18f8c139009ef8e",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/tests/test_field_ui.cjs",
+      "size_bytes": 7763,
+      "sha256": "4ea6f8c9a2e74ed146a786f70fc4364af8059cb46e19301c5f7a1aa54c838057",
+      "git_blob_sha": "68f25f451f9fb1a69c0216d72cc1c3f36c901b40",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/tests/test_integrated.py",
+      "size_bytes": 10371,
+      "sha256": "70373057327ec1461d3949631ef0ca9253e39dc105b9f1475c2e39438e9e2dcd",
+      "git_blob_sha": "a25813d22a831f15f0fa2bcade500d55cfc41765",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/tests/test_stem.py",
+      "size_bytes": 13136,
+      "sha256": "73dbc7b9226df1f669b87d3b829bbafcd8109c8737a01c422e7c7faf9c332e82",
+      "git_blob_sha": "db2e857538783b4f1bcebe9335cbec2ae73eaea7",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/tests/ui-smoke.cjs",
+      "size_bytes": 9173,
+      "sha256": "e764a855a070045589a1438aeae25085de937d0162b1e68a38f9bdc13ed10869",
+      "git_blob_sha": "bdacea07b37f1b98a960e1e7d6c84f52822a19af",
+      "mode": "100644"
+    },
+    {
+      "path": "stem/world.py",
+      "size_bytes": 41374,
+      "sha256": "7778b1c6b293eca4d966677f3e4b0bdb985a702d7ddc17324cabab8a4e5391c6",
+      "git_blob_sha": "f44a53d45814d0e7fc06c1fd98c91afec9f4f690",
+      "mode": "100644"
+    }
+  ]
+}
