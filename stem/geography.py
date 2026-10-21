@@ -94,9 +94,10 @@ def route(start,goal):
  path=[];node=goal
  while prev[node] is not None:path.append(list(node));node=prev[node]
  return list(reversed(path))
-def public(p):
+def public(p,revealed=None):
  route_path=p.get('route',[])
- return dict(bounds=[MIN_X,MAX_X,MIN_Y,MAX_Y],landmarks=[dict(v,id=k) for k,v in LANDMARKS.items()],position=p['pos'],route=route_path,route_cycles=route_cost(route_path),destination=p.get('destination'),note='Interpreted from your photographs; exact scale, unlabeled features and district placement are provisional. Travel follows land, bridges and mountain approaches one sector at a time.')
+ explored=sorted([list(map(int,k.split(','))) for k in (revealed or {})])
+ return dict(bounds=[MIN_X,MAX_X,MIN_Y,MAX_Y],landmarks=[dict(v,id=k) for k,v in LANDMARKS.items()],position=p['pos'],route=route_path,route_cycles=route_cost(route_path),revealed=explored,destination=p.get('destination'),note='Interpreted from your photographs; exact scale, unlabeled features and district placement are provisional. Entering a sector reveals nearby terrain; unexplored squares remain obscured. Travel follows land, bridges and mountain approaches one sector at a time.')
 def project(x,y):return (40+(x-MIN_X)*22,40+(y-MIN_Y)*22)
 def svg():
  width=880;height=620;parts=[f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {width} {height}" role="img" aria-labelledby="title desc"><title id="title">Stem interpreted world routes</title><desc id="desc">Western Needle and THORNS encampment, northern foothills, eastern mountain construction and woodland, southern dustlands, river channels and border observation.</desc><rect width="880" height="620" fill="#0d1617"/>']

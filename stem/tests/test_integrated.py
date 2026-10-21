@@ -35,6 +35,18 @@ class IntegratedTests(unittest.TestCase):
   path=g.route(g.SPAWN,g.LANDMARKS['vines']['pos'])
   self.assertEqual(len(path),9)
   self.assertEqual(g.route_cost(path),12)
+ def test_atlas_reveal_persists_without_generating_unvisited_sectors(self):
+  self.assertEqual(len(self.w['revealed']),9)
+  unexplored=w.key(-9,1);self.assertNotIn(unexplored,self.w['cells'])
+  self.act('north')
+  self.assertIn(unexplored,self.w['revealed']);self.assertNotIn(unexplored,self.w['cells'])
+  snap=w.snapshot(self.w,self.p)
+  self.assertIn([-9,1],snap['atlas']['revealed'])
+  tile=next(t for t in snap['map'] if (t['x'],t['y'])==(-9,1))
+  self.assertTrue(tile['revealed']);self.assertFalse(tile['known']);self.assertNotEqual(tile['title'],'Unsurveyed')
+  self.act('south')
+  self.assertIn(unexplored,self.w['revealed']);self.assertNotIn(unexplored,self.w['cells'])
+  self.assertEqual(json.loads(json.dumps(self.w))['revealed'],self.w['revealed'])
  def test_physical_river_and_border_rejection(self):
   self.p['pos']=[14,11];w.visit(self.w,14,11)
   before=self.w['tick']
