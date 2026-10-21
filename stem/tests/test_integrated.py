@@ -26,9 +26,15 @@ class IntegratedTests(unittest.TestCase):
  def test_route_planning_is_free_step_costs_time(self):
   original=self.p['pos'][:];cycle=self.w['tick'];result=self.act('go to Black.Dot Outpost');self.assertFalse(result['time_spent']);self.assertEqual(self.p['pos'],original)
   path=self.p['route'][:];self.assertEqual(len(path),5)
+  self.assertIn(f'estimated {g.route_cost(path)} travel cycles',result['text'])
+  self.assertEqual(g.public(self.p)['route_cycles'],g.route_cost(path))
   with patch('world.secrets.randbelow',return_value=19):
    self.act('travel next');self.assertEqual(self.p['pos'],path[0]);self.assertGreater(self.w['tick'],cycle);self.assertEqual(len(self.p['route']),4)
   self.assertEqual(self.p['destination'],'Black.Dot Outpost')
+ def test_route_prefers_lower_cycle_tiles_when_sector_count_ties(self):
+  path=g.route(g.SPAWN,g.LANDMARKS['vines']['pos'])
+  self.assertEqual(len(path),9)
+  self.assertEqual(g.route_cost(path),12)
  def test_physical_river_and_border_rejection(self):
   self.p['pos']=[14,11];w.visit(self.w,14,11)
   before=self.w['tick']
